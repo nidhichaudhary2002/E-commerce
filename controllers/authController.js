@@ -121,6 +121,7 @@ export const loginController = async (req, res) => {
 export const forgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
+    
     if (!email) {
       res.status(400).send({ message: "Emai is required" });
     }
@@ -139,6 +140,7 @@ export const forgotPasswordController = async (req, res) => {
         message: "Wrong Email Or Answer",
       });
     }
+
     const hashed = await hashPassword(newPassword);
     await userModel.findByIdAndUpdate(user._id, { password: hashed });
     res.status(200).send({
